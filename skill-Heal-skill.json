@@ -1,0 +1,666 @@
+{
+  "intents": [
+    {
+      "intent": "Agendamento_de_consulta",
+      "examples": [
+        {
+          "text": "Como faço para agendar consulta"
+        },
+        {
+          "text": "gostaria de marcar médico"
+        },
+        {
+          "text": "Por favor, marque uma consulta médica para mim"
+        },
+        {
+          "text": "Preciso marcar um médico"
+        },
+        {
+          "text": "quero fazer um agendamento de uma consulta"
+        },
+        {
+          "text": "Quero marcar uma consulta"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "contato",
+      "examples": [
+        {
+          "text": "Como faço para entrar em contato"
+        },
+        {
+          "text": "me passa o contato"
+        },
+        {
+          "text": "Onde posso ligar para falar com vocês"
+        },
+        {
+          "text": "qual é o número do telefone"
+        },
+        {
+          "text": "Quero ligar para a clinica"
+        }
+      ]
+    },
+    {
+      "intent": "Despedida",
+      "examples": [
+        {
+          "text": "Até mais"
+        },
+        {
+          "text": "Obrigada"
+        },
+        {
+          "text": "Obrigado"
+        },
+        {
+          "text": "Tchau"
+        },
+        {
+          "text": "Valeu"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Especialidades",
+      "examples": [
+        {
+          "text": "Quais as especialidades dos médicos"
+        },
+        {
+          "text": "Quais doutores tem"
+        },
+        {
+          "text": "Quais especialidades vocês atendem"
+        },
+        {
+          "text": "Quais são as especialidades"
+        },
+        {
+          "text": "Quero saber quais especialidades que vocês tem"
+        },
+        {
+          "text": "Que tipo de médicos atendem na clinica"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "localização",
+      "examples": [
+        {
+          "text": "em que lugar fica a clinica"
+        },
+        {
+          "text": "me passa a localização"
+        },
+        {
+          "text": "onde é a clinica"
+        },
+        {
+          "text": "onde fica"
+        },
+        {
+          "text": "Qual é o endereço"
+        }
+      ]
+    },
+    {
+      "intent": "saudação",
+      "examples": [
+        {
+          "text": "Boa noite"
+        },
+        {
+          "text": "Boa tarde"
+        },
+        {
+          "text": "Bom dia"
+        },
+        {
+          "text": "Eae"
+        },
+        {
+          "text": "Eai"
+        },
+        {
+          "text": "Oi"
+        },
+        {
+          "text": "olá"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "Confirmação",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "certo",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "não",
+          "synonyms": [
+            "errado",
+            "não está certo",
+            "não está ok"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "okay",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "sim",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Especialidades",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "Clínico geral",
+          "synonyms": [
+            "clínico"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Dermatologia",
+          "synonyms": [
+            "Dermato",
+            "Dermatologista"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "Endocrinologia",
+          "synonyms": [
+            "Endocrino",
+            "Endocrinologista"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "Saudação_Período",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "boa noite",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Boa tarde",
+          "synonyms": []
+        },
+        {
+          "type": "synonyms",
+          "value": "Bom dia",
+          "synonyms": []
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "sys-date",
+      "values": [],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "sys-time",
+      "values": [],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "Bem-vindo",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Olá, sou o Dr. Home. Estou aqui para te auxiliar em informações da clinica Heal-skill. Além disso posso ajudar a marcar consultas.\nContamos com médicos experientes, e equipamentos modernos para melhor te atender."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Bem-vindo"
+    },
+    {
+      "type": "standard",
+      "title": "Em outros casos",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Eu não entendi. Você pode tentar reformular a frase."
+              },
+              {
+                "text": "Você pode reformular sua afirmação? Eu não estou entendendo."
+              },
+              {
+                "text": "Eu não entendi o sentido."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Em outros casos",
+      "previous_sibling": "node_9_1610208558869",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_5_1610547772459",
+      "context": {
+        "time": "@sys-time"
+      },
+      "conditions": "@sys-time",
+      "event_name": "input",
+      "dialog_node": "handler_10_1610547772459"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Você pode refazer o agendamento de consulta a qualquer momento, basta perguntar \"Marcar médico\" ou \"Agendar consulta\""
+              }
+            ],
+            "response_type": "text"
+          }
+        ]
+      },
+      "parent": "slot_3_1610547825529",
+      "conditions": "@Confirmação:não",
+      "event_name": "filled",
+      "dialog_node": "handler_2_1610548036818",
+      "previous_sibling": "handler_5_1610547825530"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_6_1610118858612",
+      "context": {
+        "Saudacao_Periodo": "@Saudação_Período"
+      },
+      "conditions": "@Saudação_Período",
+      "event_name": "input",
+      "dialog_node": "handler_3_1610118858621"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Para qual especialidade você gostaria de agendar uma consulta?"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_7_1610547583006",
+      "event_name": "focus",
+      "dialog_node": "handler_3_1610547583014",
+      "previous_sibling": "handler_4_1610547583014"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Para qual horário?"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_5_1610547772459",
+      "event_name": "focus",
+      "dialog_node": "handler_3_1610547772459",
+      "previous_sibling": "handler_10_1610547772459"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_7_1610547583006",
+      "context": {
+        "especialidades": "@Especialidades"
+      },
+      "conditions": "@Especialidades",
+      "event_name": "input",
+      "dialog_node": "handler_4_1610547583014"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_6_1610547741746",
+      "context": {
+        "date": "@sys-date"
+      },
+      "conditions": "@sys-date",
+      "event_name": "input",
+      "dialog_node": "handler_5_1610547741746"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "$especialidades no dia $date as $time , gostaria de confirmar o agendamento da consulta"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_3_1610547825529",
+      "event_name": "focus",
+      "dialog_node": "handler_5_1610547825530",
+      "previous_sibling": "handler_7_1610547825530"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Consulta $especialidades no dia $date as $time agendada com sucesso!"
+              }
+            ],
+            "response_type": "text"
+          }
+        ]
+      },
+      "parent": "slot_3_1610547825529",
+      "conditions": "@Confirmação:sim",
+      "event_name": "filled",
+      "dialog_node": "handler_6_1610548272526",
+      "previous_sibling": "handler_2_1610548036818"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_3_1610547825529",
+      "context": {
+        "confirmacao": "@Confirmação"
+      },
+      "conditions": "@Confirmação",
+      "event_name": "input",
+      "dialog_node": "handler_7_1610547825530"
+    },
+    {
+      "type": "event_handler",
+      "output": {},
+      "parent": "slot_6_1610118858612",
+      "event_name": "focus",
+      "dialog_node": "handler_9_1610118858621",
+      "previous_sibling": "handler_3_1610118858621"
+    },
+    {
+      "type": "event_handler",
+      "output": {
+        "text": {
+          "values": [
+            "Para qual data?"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "slot_6_1610547741746",
+      "event_name": "focus",
+      "dialog_node": "handler_9_1610547741746",
+      "previous_sibling": "handler_5_1610547741746"
+    },
+    {
+      "type": "standard",
+      "title": "Especialidades",
+      "output": {
+        "generic": [
+          {
+            "title": "Especialidades",
+            "options": [
+              {
+                "label": "Clínico Geral",
+                "value": {
+                  "input": {
+                    "text": "Quero marcar uma consulta com clínico"
+                  }
+                }
+              },
+              {
+                "label": "Endocrinologista",
+                "value": {
+                  "input": {
+                    "text": "Quero marcar uma consulta com endocrinologista"
+                  }
+                }
+              },
+              {
+                "label": "Dermatologista",
+                "value": {
+                  "input": {
+                    "text": "Quero marcar uma consulta com dermatologista"
+                  }
+                }
+              }
+            ],
+            "description": "Você pode selecionar uma das opções abaixo para agendar uma consulta.",
+            "response_type": "option"
+          }
+        ]
+      },
+      "conditions": "#Especialidades",
+      "dialog_node": "node_2_1610208679901",
+      "previous_sibling": "node_4_1610208478280"
+    },
+    {
+      "type": "standard",
+      "title": "Contato",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Você pode entrar em contato conosco através do número (00) 99999-9999."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#contato",
+      "dialog_node": "node_4_1610208375409",
+      "previous_sibling": "node_8_1610118701727"
+    },
+    {
+      "type": "standard",
+      "title": "Localização",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "O endereço da clinica fica em Avenida Siqueira Campos, número 386"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#localização",
+      "dialog_node": "node_4_1610208478280",
+      "previous_sibling": "node_4_1610208375409"
+    },
+    {
+      "type": "frame",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Olá $Saudacao_Periodo, como posso te ajudar?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "values": [
+              {
+                "text": "<? context.clear() ?>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#saudação",
+      "dialog_node": "node_8_1610118701727",
+      "previous_sibling": "Bem-vindo"
+    },
+    {
+      "type": "standard",
+      "title": "Despedida",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Espero ter conseguido ajudar. Volte sempre."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#Despedida",
+      "dialog_node": "node_9_1610208558869",
+      "previous_sibling": "node_9_1610547553483"
+    },
+    {
+      "type": "frame",
+      "title": "Agendamento de consulta",
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "body",
+        "dialog_node": "node_9_1610548354534"
+      },
+      "conditions": "#Agendamento_de_consulta",
+      "dialog_node": "node_9_1610547553483",
+      "previous_sibling": "node_2_1610208679901"
+    },
+    {
+      "type": "standard",
+      "title": "Limpar contexto",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "<? context.clear() ?>"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_9_1610547553483",
+      "dialog_node": "node_9_1610548354534"
+    },
+    {
+      "type": "slot",
+      "output": {},
+      "parent": "node_9_1610547553483",
+      "variable": "confirmacao",
+      "dialog_node": "slot_3_1610547825529",
+      "previous_sibling": "slot_5_1610547772459"
+    },
+    {
+      "type": "slot",
+      "parent": "node_9_1610547553483",
+      "variable": "time",
+      "dialog_node": "slot_5_1610547772459",
+      "previous_sibling": "slot_6_1610547741746"
+    },
+    {
+      "type": "slot",
+      "parent": "node_8_1610118701727",
+      "variable": "Saudacao_Periodo",
+      "dialog_node": "slot_6_1610118858612"
+    },
+    {
+      "type": "slot",
+      "parent": "node_9_1610547553483",
+      "variable": "date",
+      "dialog_node": "slot_6_1610547741746",
+      "previous_sibling": "slot_7_1610547583006"
+    },
+    {
+      "type": "slot",
+      "parent": "node_9_1610547553483",
+      "variable": "especialidades",
+      "dialog_node": "slot_7_1610547583006",
+      "previous_sibling": "node_9_1610548354534"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "disambiguation": {
+      "prompt": "Você quis dizer:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "Nenhuma das anteriores"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Você quis dizer:"
+    }
+  },
+  "learning_opt_out": false,
+  "name": "Heal-skill",
+  "language": "pt-br",
+  "description": ""
+}
